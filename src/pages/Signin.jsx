@@ -8,7 +8,7 @@ import {
   signinLoading,
   signinSuccess,
 } from "../reduxToolKit/slices/userSlice.js";
-import GoogleButton from "../components/googleButton.jsx";
+import GoogleButton from "../components/GoogleButton.jsx";
 
 export default function Signin() {
   const navigate = useNavigate();
