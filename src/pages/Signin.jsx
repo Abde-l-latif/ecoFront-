@@ -38,7 +38,7 @@ export default function Signin() {
       }
       const res = await postSignIn.json();
       dispatch(signinSuccess(res.data));
-      navigate("/products");
+      navigate("/");
     } catch (error) {
       dispatch(signinError(error.message));
     }

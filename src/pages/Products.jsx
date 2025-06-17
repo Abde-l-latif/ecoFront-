@@ -32,7 +32,7 @@ export default function Products() {
     if (userInfo) {
       const userProducts = async () => {
         const getAllcards = await fetch(
-          `${API_URL}/api/User/product/getallProductsCart/user/${userInfo._id}`,
+          `${API_URL}/api/User/product/getallProductsCart/user/${userInfo?._id}`,
           {
             method: "GET",
             headers: {
