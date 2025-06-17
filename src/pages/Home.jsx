@@ -14,6 +14,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 
 export default function Home() {
+  const API_URL =
+    import.meta.env.VITE_API_URL || "https://ecoback-jzym.onrender.com";
   const [allProducts, setAllProducts] = useState([]);
   const navigate = useNavigate();
   const [ERror, setERror] = useState(false);
@@ -26,7 +28,7 @@ export default function Home() {
     if (userInfo) {
       const userProducts = async () => {
         const getAllcards = await fetch(
-          `/api/User/product/getallProductsCart/user/${userInfo._id}`,
+          `${API_URL}/api/User/product/getallProductsCart/user/${userInfo._id}`,
           {
             method: "GET",
             headers: {
@@ -53,7 +55,7 @@ export default function Home() {
     if (userInfo) {
       try {
         const userCard = await fetch(
-          `/api/User/product/addToCart/user/${userInfo._id}`,
+          `${API_URL}/api/User/product/addToCart/user/${userInfo._id}`,
           {
             method: "PUT",
             headers: {
@@ -74,7 +76,7 @@ export default function Home() {
       try {
         dispatch(getProductLoading());
         const getProductCart = await fetch(
-          `/api/User/product/addToCart/${productId}`,
+          `${API_URL}/api/User/product/addToCart/${productId}`,
           {
             headers: {
               "content-type": "application/json",
@@ -95,11 +97,13 @@ export default function Home() {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const getAllProducts = await fetch("/api/User/product/recentProducts");
+        const getAllProducts = await fetch(
+          `${API_URL}/api/User/product/recentProducts`
+        );
         const AllProducts = await getAllProducts.json();
         setAllProducts(AllProducts);
 
-        const getWishlist = await fetch("/api/User/getWishlist");
+        const getWishlist = await fetch(`${API_URL}/api/User/getWishlist`);
         const wishlists = await getWishlist.json();
         const statusMap = {};
         AllProducts.forEach((product) => {
@@ -118,7 +122,7 @@ export default function Home() {
 
   const handelWishList = async (productId, userId) => {
     try {
-      const updatewish = await fetch(`/api/User/wishlist/${userId}`, {
+      const updatewish = await fetch(`${API_URL}/api/User/wishlist/${userId}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",
