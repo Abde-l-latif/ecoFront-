@@ -167,29 +167,25 @@ export default function Products() {
     getProducts();
   }, []);
 
-  const handelWishList = async (productId, userId = false) => {
+  const handelWishList = async (productId, userId) => {
+    if (!userId) {
+      return setERror("you need to log in first ");
+    }
     try {
-      if (!userId) {
+      const updatewish = await fetch(`${API_URL}/api/User/wishlist/${userId}`, {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ productId }),
+      });
+      if (!updatewish.ok) {
         return setERror("you need to log in first ");
-      } else {
-        const updatewish = await fetch(
-          `${API_URL}/api/User/wishlist/${userId}`,
-          {
-            method: "PUT",
-            headers: {
-              "content-type": "application/json",
-            },
-            body: JSON.stringify({ productId }),
-          }
-        );
-        if (!updatewish.ok) {
-          return setERror("you need to log in first ");
-        }
-        const data = await updatewish.json();
-        setNewWishList((prev) => ({ ...prev, [productId]: data.isInWishList }));
-
-        setERror(false);
       }
+      const data = await updatewish.json();
+      setNewWishList((prev) => ({ ...prev, [productId]: data.isInWishList }));
+
+      setERror(false);
     } catch (error) {
       setERror(error);
     }
@@ -329,7 +325,7 @@ export default function Products() {
                     <div
                       className="absolute w-8 h-8 rounded-full top-1 right-1 bg-gray-200 cursor-pointer flex items-center justify-center"
                       onClick={() => {
-                        handelWishList(product._id, userInfo._id);
+                        handelWishList(product._id, userInfo?._id);
                       }}
                     >
                       {newWishList[product._id] ? (
