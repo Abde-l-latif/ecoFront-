@@ -169,7 +169,7 @@ export default function Products() {
 
   const handelWishList = async (productId, userId) => {
     try {
-      if (!userInfo) {
+      if (!userId) {
         return setERror("you need to log in first ");
       } else {
         const updatewish = await fetch(
