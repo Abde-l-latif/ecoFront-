@@ -16,7 +16,7 @@ import {
 } from "../reduxToolKit/slices/userSlice.js";
 import { resetProductCard } from "../reduxToolKit/slices/productSlice.js";
 import CreateProduct from "../components/CreateProduct.jsx";
-import Wishlist from "../components/wishlist.jsx";
+import Wishlist from "../components/Wishlist.jsx";
 import Orders from "../components/Orders.jsx";
 
 export default function Profile() {
