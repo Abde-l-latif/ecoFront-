@@ -12,7 +12,7 @@ import Signup from "./pages/Signup.jsx";
 import Profile from "./pages/Profile.jsx";
 import { Provider } from "react-redux";
 import { store, persistor } from "./reduxToolKit/store.js";
-import ProtectedProfile from "./pages/protectedProfile.jsx";
+import ProtectedProfile from "./pages/ProtectedProfile.jsx";
 import { PersistGate } from "redux-persist/integration/react";
 import Product from "./pages/Product.jsx";
 import Checkout from "./pages/Checkout.jsx";
