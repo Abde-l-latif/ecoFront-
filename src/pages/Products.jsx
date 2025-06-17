@@ -167,7 +167,7 @@ export default function Products() {
     getProducts();
   }, []);
 
-  const handelWishList = async (productId, userId) => {
+  const handelWishList = async (productId, userId = false) => {
     try {
       if (!userId) {
         return setERror("you need to log in first ");
