@@ -15,12 +15,14 @@ export default function Signup() {
   });
   const [Error, setError] = useState(false);
   const [Loading, setLoading] = useState(false);
+  const API_URL =
+    import.meta.env.VITE_API_URL || "https://ecoback-jzym.onrender.com";
 
   const handelPostSignup = async () => {
     try {
       setError(false);
       setLoading(true);
-      const postData = await fetch("/api/Auth/signup", {
+      const postData = await fetch(`${API_URL}/api/Auth/signup`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

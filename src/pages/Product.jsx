@@ -9,6 +9,8 @@ import {
 } from "../reduxToolKit/slices/productSlice.js";
 
 export default function Product() {
+  const API_URL =
+    import.meta.env.VITE_API_URL || "https://ecoback-jzym.onrender.com";
   const dispatch = useDispatch();
   const { singleProduct } = useSelector((state) => state.PRODUCT);
   const { userInfo } = useSelector((state) => state.USER);
@@ -20,7 +22,7 @@ export default function Product() {
     if (userInfo) {
       const userProducts = async () => {
         const getAllcards = await fetch(
-          `/api/User/product/getallProductsCart/user/${userInfo._id}`,
+          `${API_URL}/api/User/product/getallProductsCart/user/${userInfo._id}`,
           {
             method: "GET",
             headers: {
@@ -42,7 +44,7 @@ export default function Product() {
     if (userInfo) {
       try {
         const userCard = await fetch(
-          `/api/User/product/addToCart/user/${userInfo._id}`,
+          `${API_URL}/api/User/product/addToCart/user/${userInfo._id}`,
           {
             method: "PUT",
             headers: {
@@ -63,7 +65,7 @@ export default function Product() {
       try {
         dispatch(getProductLoading());
         const getProductCart = await fetch(
-          `/api/User/product/addToCart/${productId}`,
+          `${API_URL}/api/User/product/addToCart/${productId}`,
           {
             headers: {
               "content-type": "application/json",
@@ -83,7 +85,7 @@ export default function Product() {
 
   const handelWishList = async (productId, userId) => {
     try {
-      const updatewish = await fetch(`/api/User/wishlist/${userId}`, {
+      const updatewish = await fetch(`${API_URL}/api/User/wishlist/${userId}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",

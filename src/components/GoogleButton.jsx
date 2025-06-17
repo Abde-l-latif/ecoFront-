@@ -9,6 +9,8 @@ import {
 import { useNavigate } from "react-router";
 
 export default function GoogleButton() {
+  const API_URL =
+    import.meta.env.VITE_API_URL || "https://ecoback-jzym.onrender.com";
   const { error } = useSelector((state) => state.USER);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -26,7 +28,7 @@ export default function GoogleButton() {
             email,
             photoURL: avatar,
           } = result.user;
-          const Oauth = await fetch("/api/Auth/googleOauth", {
+          const Oauth = await fetch(`${API_URL}/api/Auth/googleOauth`, {
             method: "POST",
             headers: {
               "content-type": "application/json",

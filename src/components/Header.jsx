@@ -13,6 +13,8 @@ import {
 } from "../reduxToolKit/slices/productSlice.js";
 
 export default function Header() {
+  const API_URL =
+    import.meta.env.VITE_API_URL || "https://ecoback-jzym.onrender.com";
   const dispatch = useDispatch();
   const [menu, setMenu] = useState(false);
   const [activeCart, setActiveCart] = useState(false);
@@ -23,7 +25,7 @@ export default function Header() {
 
   const handelDelete = async (id) => {
     if (userInfo) {
-      await fetch(`/api/User/product/removeProduct/${userInfo._id}`, {
+      await fetch(`${API_URL}/api/User/product/removeProduct/${userInfo._id}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",
@@ -31,7 +33,7 @@ export default function Header() {
         body: JSON.stringify({ id }),
       });
       const getAllcards = await fetch(
-        `/api/User/product/getallProductsCart/user/${userInfo._id}`,
+        `${API_URL}/api/User/product/getallProductsCart/user/${userInfo._id}`,
         {
           headers: {
             "content-type": "application/json",
@@ -62,7 +64,7 @@ export default function Header() {
 
   const increaseFunc = async (id) => {
     if (userInfo) {
-      await fetch(`/api/User/product/addQuantity/${userInfo._id}`, {
+      await fetch(`${API_URL}/api/User/product/addQuantity/${userInfo._id}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",
@@ -70,7 +72,7 @@ export default function Header() {
         body: JSON.stringify({ id }),
       });
       const getAllcards = await fetch(
-        `/api/User/product/getallProductsCart/user/${userInfo._id}`,
+        `${API_URL}/api/User/product/getallProductsCart/user/${userInfo._id}`,
         {
           headers: {
             "content-type": "application/json",
@@ -90,15 +92,18 @@ export default function Header() {
   const decreaseFunc = async (id) => {
     if (userInfo) {
       if (userInfo) {
-        await fetch(`/api/User/product/removeQuantity/${userInfo._id}`, {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({ id }),
-        });
+        await fetch(
+          `${API_URL}/api/User/product/removeQuantity/${userInfo._id}`,
+          {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({ id }),
+          }
+        );
         const getAllcards = await fetch(
-          `/api/User/product/getallProductsCart/user/${userInfo._id}`,
+          `${API_URL}/api/User/product/getallProductsCart/user/${userInfo._id}`,
           {
             headers: {
               "content-type": "application/json",

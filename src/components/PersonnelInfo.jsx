@@ -9,6 +9,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 export default function PersonnelInfo() {
+  const API_URL =
+    import.meta.env.VITE_API_URL || "https://ecoback-jzym.onrender.com";
   const { userInfo } = useSelector((state) => state.USER);
   const [activePass, setActivePass] = useState(false);
   const [file, setFile] = useState(null);
@@ -75,13 +77,16 @@ export default function PersonnelInfo() {
     e.preventDefault();
     try {
       dispatch(updateAccountLoading());
-      const update = await fetch(`/api/User/UpdateUser/${FormData._id}`, {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(FormData),
-      });
+      const update = await fetch(
+        `${API_URL}/api/User/UpdateUser/${FormData._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(FormData),
+        }
+      );
       if (!update.ok) {
         dispatch(updateAccountError("error in request"));
       }

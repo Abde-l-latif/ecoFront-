@@ -11,6 +11,8 @@ import {
 import GoogleButton from "../components/GoogleButton.jsx";
 
 export default function Signin() {
+  const API_URL =
+    import.meta.env.VITE_API_URL || "https://ecoback-jzym.onrender.com";
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [Form, SetForm] = useState({
@@ -23,7 +25,7 @@ export default function Signin() {
     e.preventDefault();
     try {
       dispatch(signinLoading());
-      const postSignIn = await fetch("/api/Auth/signin", {
+      const postSignIn = await fetch(`${API_URL}/api/Auth/signin`, {
         method: "POST",
         headers: {
           "content-type": "application/json",

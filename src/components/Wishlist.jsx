@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
 
 export default function Wishlist() {
+  const API_URL =
+    import.meta.env.VITE_API_URL || "https://ecoback-jzym.onrender.com";
   const [wishlist, setWishList] = useState([]);
   const [newList, setNewList] = useState({});
   useEffect(() => {
     const getWishlist = async () => {
       try {
-        const getWishlist = await fetch("/api/User/getWishlist");
+        const getWishlist = await fetch(`${API_URL}/api/User/getWishlist`);
         const wishlists = await getWishlist.json();
         setWishList(wishlists);
       } catch (error) {
@@ -19,7 +21,7 @@ export default function Wishlist() {
 
   const handelWishList = async (productId, userId, wish) => {
     try {
-      const updatewish = await fetch(`/api/User/wishlist/${userId}`, {
+      const updatewish = await fetch(`${API_URL}/api/User/wishlist/${userId}`, {
         method: "PUT",
         headers: {
           "content-type": "application/json",

@@ -20,13 +20,15 @@ import Wishlist from "../components/Wishlist.jsx";
 import Orders from "../components/Orders.jsx";
 
 export default function Profile() {
+  const API_URL =
+    import.meta.env.VITE_API_URL || "https://ecoback-jzym.onrender.com";
   const dispatch = useDispatch();
   const [active, setActive] = useState("my_Account");
   const { userInfo } = useSelector((state) => state.USER);
 
   const handelSignout = async () => {
     try {
-      await fetch("/api/Auth/signout", {
+      await fetch(`${API_URL}/api/Auth/signout`, {
         method: "POST",
       });
       dispatch(signoutSuccess());
@@ -39,12 +41,15 @@ export default function Profile() {
   const handelDelete = async () => {
     try {
       dispatch(deleteAccountLoading());
-      const deleteData = await fetch(`/api/User/DeleteUser/${userInfo._id}`, {
-        method: "DELETE",
-        headers: {
-          "type-content": "application/json",
-        },
-      });
+      const deleteData = await fetch(
+        `${API_URL}/api/User/DeleteUser/${userInfo._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "type-content": "application/json",
+          },
+        }
+      );
       if (!deleteData.ok) {
         dispatch(deleteAccountError("Error in the server !! "));
       }

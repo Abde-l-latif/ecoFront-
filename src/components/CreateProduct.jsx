@@ -4,6 +4,8 @@ import { storage } from "../firebase";
 import { useSelector } from "react-redux";
 
 export default function CreateProduct() {
+  const API_URL =
+    import.meta.env.VITE_API_URL || "https://ecoback-jzym.onrender.com";
   const { userInfo } = useSelector((state) => state.USER);
   const [ProductData, setProductData] = useState({
     title: "",
@@ -94,7 +96,7 @@ export default function CreateProduct() {
       setLoading(true);
       setSubmitError(false);
       const postProduct = await fetch(
-        `/api/User/createProduct/${userInfo._id}`,
+        `${API_URL}/api/User/createProduct/${userInfo._id}`,
         {
           method: "POST",
           headers: {
