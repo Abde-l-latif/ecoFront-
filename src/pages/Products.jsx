@@ -169,20 +169,27 @@ export default function Products() {
 
   const handelWishList = async (productId, userId) => {
     try {
-      const updatewish = await fetch(`${API_URL}/api/User/wishlist/${userId}`, {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({ productId }),
-      });
-      if (!updatewish.ok) {
+      if (!userInfo) {
         return setERror("you need to log in first ");
-      }
-      const data = await updatewish.json();
-      setNewWishList((prev) => ({ ...prev, [productId]: data.isInWishList }));
+      } else {
+        const updatewish = await fetch(
+          `${API_URL}/api/User/wishlist/${userId}`,
+          {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({ productId }),
+          }
+        );
+        if (!updatewish.ok) {
+          return setERror("you need to log in first ");
+        }
+        const data = await updatewish.json();
+        setNewWishList((prev) => ({ ...prev, [productId]: data.isInWishList }));
 
-      setERror(false);
+        setERror(false);
+      }
     } catch (error) {
       setERror(error);
     }
