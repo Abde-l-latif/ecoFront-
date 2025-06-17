@@ -1,0 +1,17 @@
+.para::before,
+.para::after {
+  content: "";
+  position: absolute;
+  background-color: #000;
+  height: 1px;
+  width: 28%;
+  top: 50%;
+}
+
+.para::before {
+  left: 0;
+}
+
+.para::after {
+  right: 0;
+}
