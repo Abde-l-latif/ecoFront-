@@ -246,7 +246,7 @@ export default function Home() {
                   <div
                     className="absolute w-8 h-8 rounded-full top-1 right-1 bg-gray-200 cursor-pointer flex items-center justify-center"
                     onClick={() => {
-                      handelWishList(product._id, userInfo._id);
+                      handelWishList(product._id, userInfo?._id);
                     }}
                   >
                     {newWishList[product._id] ? (
