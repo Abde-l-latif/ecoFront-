@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 export default function Wishlist() {
   const API_URL =
     import.meta.env.VITE_API_URL || "https://ecoback-jzym.onrender.com";
   const [wishlist, setWishList] = useState([]);
   const [newList, setNewList] = useState({});
+  const { userInfo } = useSelector((state) => state.USER);
   useEffect(() => {
     const getWishlist = async () => {
       try {
@@ -90,7 +92,7 @@ export default function Wishlist() {
                   <div
                     className="absolute w-8 h-8 rounded-full top-1 right-1 bg-gray-200 cursor-pointer flex items-center justify-center"
                     onClick={() => {
-                      handelWishList(product._id, product.userRef);
+                      handelWishList(product._id, userInfo?._id);
                     }}
                   >
                     {product.wishlist ? (
