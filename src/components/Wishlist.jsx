@@ -1,13 +1,44 @@
 import { useEffect, useState } from "react";
 import { FaRegHeart, FaHeart } from "react-icons/fa";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  getProductSuccess,
+  getProductError,
+  getProductLoading,
+  getProductUser,
+} from "../reduxToolKit/slices/productSlice.js";
 
 export default function Wishlist() {
+  const dispatch = useDispatch();
   const API_URL =
     import.meta.env.VITE_API_URL || "https://ecoback-jzym.onrender.com";
   const [wishlist, setWishList] = useState([]);
   const [newList, setNewList] = useState({});
   const { userInfo } = useSelector((state) => state.USER);
+  const [change, setChange] = useState();
+  useEffect(() => {
+    if (userInfo) {
+      const userProducts = async () => {
+        const getAllcards = await fetch(
+          `${API_URL}/api/User/product/getallProductsCart/user/${userInfo?._id}`,
+          {
+            credentials: "include",
+            method: "GET",
+            headers: {
+              "content-type": "application/json",
+            },
+          }
+        );
+        if (!getAllcards.ok) {
+          throw new Error("Failed to fetch cart");
+        }
+        const res = await getAllcards.json();
+        dispatch(getProductUser({ res, user: userInfo._id }));
+      };
+      userProducts();
+    }
+  }, [change]);
+
   useEffect(() => {
     const getWishlist = async () => {
       try {
@@ -22,6 +53,50 @@ export default function Wishlist() {
     };
     getWishlist();
   }, [newList]);
+
+  const addProduct = async (productId) => {
+    if (userInfo) {
+      try {
+        const userCard = await fetch(
+          `${API_URL}/api/User/product/addToCart/user/${userInfo._id}`,
+          {
+            credentials: "include",
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify({ productId }),
+          }
+        );
+        if (!userCard.ok) {
+          throw new Error("Failed to add product");
+        }
+        const response = await userCard.json();
+        setChange(response);
+      } catch (error) {
+        dispatch(getProductError(error));
+      }
+    } else {
+      try {
+        dispatch(getProductLoading());
+        const getProductCart = await fetch(
+          `${API_URL}/api/User/product/addToCart/${productId}`,
+          {
+            headers: {
+              "content-type": "application/json",
+            },
+          }
+        );
+        if (!getProductCart.ok) {
+          throw new Error("Failed to fetch cart");
+        }
+        const { data } = await getProductCart.json();
+        dispatch(getProductSuccess(data));
+      } catch (error) {
+        dispatch(getProductError(error));
+      }
+    }
+  };
 
   const handelWishList = async (productId, userId) => {
     try {
@@ -84,7 +159,12 @@ export default function Wishlist() {
                       )}
                     </div>
 
-                    <button className="bg-slate-600 text-white p-1 rounded cursor-pointer hover:bg-slate-500">
+                    <button
+                      className="bg-slate-600 text-white p-1 rounded cursor-pointer hover:bg-slate-500"
+                      onClick={() => {
+                        addProduct(product._id);
+                      }}
+                    >
                       {" "}
                       Add to cart{" "}
                     </button>
