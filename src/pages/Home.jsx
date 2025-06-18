@@ -254,8 +254,12 @@ export default function Home() {
                       handelWishList(product._id, userInfo?._id);
                     }}
                   >
-                    {newWishList[product._id] ? (
-                      <FaHeart className="text-red-600 hover:text-xl duration-400" />
+                    {userInfo ? (
+                      newWishList[product._id] ? (
+                        <FaHeart className="text-red-600 hover:text-xl duration-400" />
+                      ) : (
+                        <FaRegHeart className="hover:text-xl duration-400" />
+                      )
                     ) : (
                       <FaRegHeart className="hover:text-xl duration-400" />
                     )}
