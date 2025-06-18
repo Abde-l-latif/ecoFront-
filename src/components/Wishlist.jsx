@@ -21,7 +21,7 @@ export default function Wishlist() {
     getWishlist();
   }, [newList]);
 
-  const handelWishList = async (productId, userId, wish) => {
+  const handelWishList = async (productId, userId) => {
     try {
       const updatewish = await fetch(`${API_URL}/api/User/wishlist/${userId}`, {
         credentials: "include",
@@ -29,8 +29,9 @@ export default function Wishlist() {
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ productId, wishlist: !wish }),
+        body: JSON.stringify({ productId }),
       });
+
       const data = await updatewish.json();
       setNewList(data.data);
     } catch (error) {
@@ -89,11 +90,7 @@ export default function Wishlist() {
                   <div
                     className="absolute w-8 h-8 rounded-full top-1 right-1 bg-gray-200 cursor-pointer flex items-center justify-center"
                     onClick={() => {
-                      handelWishList(
-                        product._id,
-                        product.userRef,
-                        product.wishlist
-                      );
+                      handelWishList(product._id, product.userRef);
                     }}
                   >
                     {product.wishlist ? (
