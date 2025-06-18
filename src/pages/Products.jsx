@@ -57,7 +57,8 @@ export default function Products() {
     Url.set("startIndex", startIndex);
     const urlString = Url.toString();
     const filtred = await fetch(
-      `${API_URL}/api/User/product/filtredProducts?${urlString}`
+      `${API_URL}/api/User/product/filtredProducts?${urlString}`,
+      { credentials: "include" }
     );
     const res = await filtred.json();
     if (res.length >= 4) {
@@ -89,7 +90,8 @@ export default function Products() {
     const getFiltredData = async () => {
       const urlString = Url.toString();
       const filtred = await fetch(
-        `${API_URL}/api/User/product/filtredProducts?${urlString}`
+        `${API_URL}/api/User/product/filtredProducts?${urlString}`,
+        { credentials: "include" }
       );
       const res = await filtred.json();
       if (res.length >= 4) {

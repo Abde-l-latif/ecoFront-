@@ -9,7 +9,9 @@ export default function Wishlist() {
   useEffect(() => {
     const getWishlist = async () => {
       try {
-        const getWishlist = await fetch(`${API_URL}/api/User/getWishlist`);
+        const getWishlist = await fetch(`${API_URL}/api/User/getWishlist`, {
+          credentials: "include",
+        });
         const wishlists = await getWishlist.json();
         setWishList(wishlists);
       } catch (error) {
@@ -22,6 +24,7 @@ export default function Wishlist() {
   const handelWishList = async (productId, userId, wish) => {
     try {
       const updatewish = await fetch(`${API_URL}/api/User/wishlist/${userId}`, {
+        credentials: "include",
         method: "PUT",
         headers: {
           "content-type": "application/json",

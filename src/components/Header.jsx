@@ -26,6 +26,7 @@ export default function Header() {
   const handelDelete = async (id) => {
     if (userInfo) {
       await fetch(`${API_URL}/api/User/product/removeProduct/${userInfo._id}`, {
+        credentials: "include",
         method: "PUT",
         headers: {
           "content-type": "application/json",
@@ -35,6 +36,7 @@ export default function Header() {
       const getAllcards = await fetch(
         `${API_URL}/api/User/product/getallProductsCart/user/${userInfo._id}`,
         {
+          credentials: "include",
           headers: {
             "content-type": "application/json",
           },
@@ -65,6 +67,7 @@ export default function Header() {
   const increaseFunc = async (id) => {
     if (userInfo) {
       await fetch(`${API_URL}/api/User/product/addQuantity/${userInfo._id}`, {
+        credentials: "include",
         method: "PUT",
         headers: {
           "content-type": "application/json",
@@ -74,6 +77,7 @@ export default function Header() {
       const getAllcards = await fetch(
         `${API_URL}/api/User/product/getallProductsCart/user/${userInfo._id}`,
         {
+          credentials: "include",
           headers: {
             "content-type": "application/json",
           },
@@ -96,6 +100,7 @@ export default function Header() {
           `${API_URL}/api/User/product/removeQuantity/${userInfo._id}`,
           {
             method: "PUT",
+            credentials: "include",
             headers: {
               "content-type": "application/json",
             },
@@ -105,6 +110,7 @@ export default function Header() {
         const getAllcards = await fetch(
           `${API_URL}/api/User/product/getallProductsCart/user/${userInfo._id}`,
           {
+            credentials: "include",
             headers: {
               "content-type": "application/json",
             },

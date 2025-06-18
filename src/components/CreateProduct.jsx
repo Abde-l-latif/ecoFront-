@@ -98,6 +98,7 @@ export default function CreateProduct() {
       const postProduct = await fetch(
         `${API_URL}/api/User/createProduct/${userInfo._id}`,
         {
+          credentials: "include",
           method: "POST",
           headers: {
             "content-type": "application/json",
