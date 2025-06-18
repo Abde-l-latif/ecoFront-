@@ -29,6 +29,7 @@ export default function GoogleButton() {
             photoURL: avatar,
           } = result.user;
           const Oauth = await fetch(`${API_URL}/api/Auth/googleOauth`, {
+            credentials: "include",
             method: "POST",
             headers: {
               "content-type": "application/json",

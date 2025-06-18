@@ -26,6 +26,7 @@ export default function Signin() {
     try {
       dispatch(signinLoading());
       const postSignIn = await fetch(`${API_URL}/api/Auth/signin`, {
+        credentials: "include",
         method: "POST",
         headers: {
           "content-type": "application/json",
