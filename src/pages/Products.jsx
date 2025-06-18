@@ -34,6 +34,7 @@ export default function Products() {
         const getAllcards = await fetch(
           `${API_URL}/api/User/product/getallProductsCart/user/${userInfo?._id}`,
           {
+            credentials: "include",
             method: "GET",
             headers: {
               "content-type": "application/json",
@@ -107,6 +108,7 @@ export default function Products() {
         const userCard = await fetch(
           `${API_URL}/api/User/product/addToCart/user/${userInfo._id}`,
           {
+            credentials: "include",
             method: "PUT",
             headers: {
               "content-type": "application/json",
@@ -150,7 +152,9 @@ export default function Products() {
         const getAllProducts = await fetch(`${API_URL}/api/User/products`);
         const AllProducts = await getAllProducts.json();
 
-        const getWishlist = await fetch(`${API_URL}/api/User/getWishlist`);
+        const getWishlist = await fetch(`${API_URL}/api/User/getWishlist`, {
+          credentials: "include",
+        });
         const wishlists = await getWishlist.json();
         const statusMap = {};
         AllProducts.forEach((product) => {
@@ -173,6 +177,7 @@ export default function Products() {
     }
     try {
       const updatewish = await fetch(`${API_URL}/api/User/wishlist/${userId}`, {
+        credentials: "include",
         method: "PUT",
         headers: {
           "content-type": "application/json",

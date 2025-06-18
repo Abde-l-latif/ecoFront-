@@ -24,6 +24,7 @@ export default function Product() {
         const getAllcards = await fetch(
           `${API_URL}/api/User/product/getallProductsCart/user/${userInfo._id}`,
           {
+            credentials: "include",
             method: "GET",
             headers: {
               "content-type": "application/json",
@@ -46,6 +47,7 @@ export default function Product() {
         const userCard = await fetch(
           `${API_URL}/api/User/product/addToCart/user/${userInfo._id}`,
           {
+            credentials: "include",
             method: "PUT",
             headers: {
               "content-type": "application/json",
@@ -86,6 +88,7 @@ export default function Product() {
   const handelWishList = async (productId, userId) => {
     try {
       const updatewish = await fetch(`${API_URL}/api/User/wishlist/${userId}`, {
+        credentials: "include",
         method: "PUT",
         headers: {
           "content-type": "application/json",
